@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Species } from '../../models/Species';
 
 type Props = {
@@ -6,5 +7,9 @@ type Props = {
 };
 
 export function SpeciesItem({ species }: Props) {
-  return <p>{species.name}</p>;
+  return (
+    <p>
+      <Link to={`/characters/${species.url.match(/\d+/)}`}>{species.name}</Link>
+    </p>
+  );
 }

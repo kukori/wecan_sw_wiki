@@ -1,7 +1,15 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
+import { Header } from './common/Header';
+import { CharacterList } from './characters/CharacterList';
 
-type Props = unknown;
+export function Characters() {
+  const { speciesId } = useParams();
 
-export function Characters(props: Props) {
-  return <div>Characters</div>;
+  return (
+    <div>
+      <Header title="Characters" />
+      {speciesId && <CharacterList speciesId={speciesId} />}
+    </div>
+  );
 }
