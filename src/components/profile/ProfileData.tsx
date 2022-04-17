@@ -11,7 +11,7 @@ export function ProfileData({ profileId }: Props) {
   const [species, setSpecies] = useState<string[]>([]);
 
   const fetchProfile = (id: string) =>
-    fetch(`https://swapi.dev/api/species/${id}`).then((res) => res.json());
+    fetch(`https://swapi.dev/api/people/${id}`).then((res) => res.json());
 
   const fetchUrl = (url: string) => fetch(url).then((res) => res.json());
 
