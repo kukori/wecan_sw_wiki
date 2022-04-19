@@ -16,6 +16,17 @@ type QueryResult = {
   results: People[];
 };
 
+/**
+ * Displays the search result depending on the query input prop.
+ * If there is no result it displays a message. If the result count is 1
+ * it uses the ProfileDisplay component to show the data. If there is more
+ * than one result we display a list of CharacterItems that have links
+ * pointing to the profiles.
+ *
+ * @export
+ * @param {Props} { query: string }
+ * @returns {*}
+ */
 export function SearchResult({ query }: Props) {
   const searchProfiles = (searchQuery: string) =>
     fetch(`https://swapi.dev/api/people/?search=${searchQuery}`).then((res) =>

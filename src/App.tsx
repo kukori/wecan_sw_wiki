@@ -7,13 +7,11 @@ import { Search } from './components/Search';
 
 export function App() {
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/characters/:speciesId" element={<Characters />} />
-        <Route path="/profile/:profileId" element={<Profile />} />
-        <Route path="/search/:searchText" element={<Search />} />
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/characters/:speciesId" element={<Characters />} />
+      <Route path="/profile/:profileId" element={<Profile />} />
+      <Route path="/search/:searchText" element={<Search />} />
+    </Routes>
   );
 }

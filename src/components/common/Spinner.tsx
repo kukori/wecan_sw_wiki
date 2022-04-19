@@ -1,5 +1,4 @@
 import styled, { keyframes } from 'styled-components';
-// https://tobiasahlin.com/spinkit/
 
 const rotate = keyframes`
  0% { 
@@ -11,6 +10,11 @@ const rotate = keyframes`
   }
 `;
 
+/**
+ * Source: https://tobiasahlin.com/spinkit/
+ *
+ * @type {*}
+ */
 export const Spinner = styled.div`
   width: 40px;
   height: 40px;

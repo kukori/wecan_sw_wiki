@@ -33,6 +33,14 @@ type Props = {
   profile: People;
 };
 
+/**
+ * Film titles and species names have to be queried individually one by one.
+ * It is done with the useQueries hook.
+ *
+ * @export
+ * @param {Props} { profile }
+ * @returns {*}
+ */
 export function ProfileDisplay({ profile }: Props) {
   const fetchUrl = (url: string) => fetch(url).then((res) => res.json());
 
