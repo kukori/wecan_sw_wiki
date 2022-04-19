@@ -8,10 +8,10 @@ type Props = {
 
 export function CharacterItem({ character }: Props) {
   return (
-    <p>
+    <div data-testid="people-test">
       <Link to={`/profile/${character.url.match(/\d+/)}`}>
         {character.name}
       </Link>
-    </p>
+    </div>
   );
 }
