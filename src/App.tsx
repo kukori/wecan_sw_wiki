@@ -4,7 +4,6 @@ import { Home } from './components/Home';
 import { Characters } from './components/Characters';
 import { Profile } from './components/Profile';
 import { Search } from './components/Search';
-import './App.css';
 
 export function App() {
   return (

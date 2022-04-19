@@ -3,6 +3,9 @@ import { useQuery } from 'react-query';
 import { People } from '../../models/People';
 import { ProfileDisplay } from '../profile/ProfileDisplay';
 import { CharacterItem } from '../characters/CharacterItem';
+import { CenteredContainer } from '../common/CenteredContainer';
+import { Spinner } from '../common/Spinner';
+import { List } from '../common/List';
 
 type Props = {
   query: string;
@@ -25,19 +28,23 @@ export function SearchResult({ query }: Props) {
   );
 
   return (
-    <div>
-      {searchQuery.isLoading && <div>Loading</div>}
-      {searchQuery.status === 'success' && searchQuery.data.count === 0 && (
-        <div>No profile found...</div>
-      )}
-      {searchQuery.status === 'success' && searchQuery.data.count === 1 && (
-        <ProfileDisplay profile={searchQuery.data.results[0]} />
-      )}
-      {searchQuery.status === 'success' &&
-        searchQuery.data.count > 1 &&
-        searchQuery.data.results.map((people) => (
-          <CharacterItem key={people.name} character={people} />
-        ))}
-    </div>
+    <CenteredContainer>
+      <div>
+        {searchQuery.isLoading && <Spinner />}
+        {searchQuery.status === 'success' && searchQuery.data.count === 0 && (
+          <div>No profile found...</div>
+        )}
+        {searchQuery.status === 'success' && searchQuery.data.count === 1 && (
+          <ProfileDisplay profile={searchQuery.data.results[0]} />
+        )}
+        <List>
+          {searchQuery.status === 'success' &&
+            searchQuery.data.count > 1 &&
+            searchQuery.data.results.map((people) => (
+              <CharacterItem key={people.name} character={people} />
+            ))}
+        </List>
+      </div>
+    </CenteredContainer>
   );
 }

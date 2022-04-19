@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { StyledLink } from '../common/StyledLink';
 import { Species } from '../../models/Species';
 
 type Props = {
@@ -8,8 +8,8 @@ type Props = {
 
 export function SpeciesItem({ species }: Props) {
   return (
-    <p>
-      <Link to={`/characters/${species.url.match(/\d+/)}`}>{species.name}</Link>
-    </p>
+    <StyledLink to={`/characters/${species.url.match(/\d+/)}`}>
+      {species.name}
+    </StyledLink>
   );
 }

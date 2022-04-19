@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { useQuery, useQueries } from 'react-query';
 import { Species } from '../../models/Species';
 import { CharacterItem } from './CharacterItem';
+import { List } from '../common/List';
+import { Title } from '../common/Title';
+import { CenteredContainer } from '../common/CenteredContainer';
+import { Spinner } from '../common/Spinner';
 
 type Props = {
   speciesId: string;
@@ -40,14 +44,21 @@ export function CharacterList({ speciesId }: Props) {
   const peopleQueriesLoading = peopleQueries.some((result) => result.isLoading);
 
   return (
-    <div>
-      <div>CharacterList</div>
-      {(peopleQueriesLoading || speciesQuery.isLoading) && <div>Loading</div>}
-      {isLoadingSuccess &&
-        Array.isArray(peopleQueries) &&
-        peopleQueries.map((queryData) => (
-          <CharacterItem key={queryData.data.name} character={queryData.data} />
-        ))}
-    </div>
+    <CenteredContainer>
+      <div>
+        <Title>CharacterList:</Title>
+        {(peopleQueriesLoading || speciesQuery.isLoading) && <Spinner />}
+        <List>
+          {isLoadingSuccess &&
+            Array.isArray(peopleQueries) &&
+            peopleQueries.map((queryData) => (
+              <CharacterItem
+                key={queryData.data.name}
+                character={queryData.data}
+              />
+            ))}
+        </List>
+      </div>
+    </CenteredContainer>
   );
 }

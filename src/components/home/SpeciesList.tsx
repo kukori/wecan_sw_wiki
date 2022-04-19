@@ -1,7 +1,13 @@
 import React from 'react';
 import { useQuery } from 'react-query';
+import styled from 'styled-components';
 import { Species } from '../../models/Species';
 import { SpeciesItem } from './SpeciesItem';
+import { Button } from '../common/Button';
+import { List } from '../common/List';
+import { Title } from '../common/Title';
+import { CenteredContainer } from '../common/CenteredContainer';
+import { Spinner } from '../common/Spinner';
 
 type QueryResult = {
   count: number;
@@ -9,6 +15,12 @@ type QueryResult = {
   previous: string | null;
   results: Species[];
 };
+
+const ButtonContainer = styled.div`
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+`;
 
 export function SpeciesList() {
   const [page, setPage] = React.useState(1);
@@ -24,35 +36,39 @@ export function SpeciesList() {
     });
 
   return (
-    <div>
-      <div>SpeciesList:</div>
-      {isLoading && <div>Loading</div>}
-      {isError && <div>Error: {error.message}</div>}
+    <CenteredContainer>
       <div>
-        {isSuccess &&
-          Array.isArray(data.results) &&
-          data.results.map((species: Species) => (
-            <SpeciesItem key={species.name} species={species} />
-          ))}
+        <Title>SpeciesList:</Title>
+        {isLoading && <Spinner />}
+        {isError && <div>Error: {error.message}</div>}
+        <List>
+          {isSuccess &&
+            Array.isArray(data.results) &&
+            data.results.map((species: Species) => (
+              <SpeciesItem key={species.name} species={species} />
+            ))}
+        </List>
+        <ButtonContainer>
+          <Button
+            type="button"
+            onClick={() => setPage((old) => Math.max(old - 1, 0))}
+            disabled={page === 1}
+          >
+            Previous
+          </Button>
+          <Button
+            type="button"
+            onClick={() => {
+              if (!isPreviousData && data?.next) {
+                setPage((old) => old + 1);
+              }
+            }}
+            disabled={isPreviousData || !data?.next}
+          >
+            Next
+          </Button>
+        </ButtonContainer>
       </div>
-      <button
-        type="button"
-        onClick={() => setPage((old) => Math.max(old - 1, 0))}
-        disabled={page === 1}
-      >
-        Previous
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          if (!isPreviousData && data?.next) {
-            setPage((old) => old + 1);
-          }
-        }}
-        disabled={isPreviousData || !data?.next}
-      >
-        Next
-      </button>
-    </div>
+    </CenteredContainer>
   );
 }
